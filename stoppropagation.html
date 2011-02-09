@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <title>Mock App</title>
+  <script>
+
+
+   function hrefEvent(el){
+    return function(e){
+     // The goal here is to cancel the anchor from submitting
+     if (typeof e !== 'undefined' && e.preventDefault) {e.preventDefault();}
+     return false;
+    };
+   }
+
+
+   function ajaxAnchors(c) {
+    var overlayArray =  document.getElementsByTagName('a');
+    for (i=0; i < overlayArray.length; i++)
+    {
+     if (overlayArray[i].className.indexOf(c) != -1 || overlayArray[i].getAttribute(c) !== null ){
+      overlayArray[i].how=c;
+      if (c==='NEWAJAX'){
+       observe(overlayArray[i],'click',hrefEvent(overlayArray[i]));
+      } else {
+       overlayArray[i].onclick=hrefEvent(overlayArray[i]);
+      }
+     }
+    }
+   }
+
+
+   function observe( obj, type, fn ) {
+    if (!(obj['observing'+type])){
+     if ( obj.attachEvent )
+      {obj.attachEvent( 'on'+type, fn );}
+     else
+      {obj.addEventListener( type, fn, false );}
+     obj['observing'+type]=true;
+    }
+   }
+
+
+   observe(window,'load',function(){ajaxAnchors('OLDAJAX'); ajaxAnchors('NEWAJAX');});
+
+
+  </script>
+ </head>
+ <body>
+  <a href="http://www.google.com" OLDAJAX>Old School onclick: google</a><br>
+  <a href="http://www.google.com" NEWAJAX>attachEvent, addEventListener: google</a><hr>
+  If Javascript is disabled then clicking either links should go to google. I am trying to stop event propagation, so with Javascript enabled the links should do nothing.
+ </body>
+</html>

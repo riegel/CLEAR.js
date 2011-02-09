@@ -1,0 +1,301 @@
+# Housekeeping... We need to clear some vars, we clear them here and should also clear
+  them again right before CLEAR_PUSH_DIVSTORE finishes.
+/#
+GLOBAL_GOTO_PAGE='ERROR'
+CLEAR_DIVSTORE='ERROR'
+ajaxrequest='ERROR'
+ajax.CLICKED='ERROR'
+
+
+function endOVERLAY() do return ajaxGOTO('') /return /function
+function ajaxGOTO(p) locals text,f do
+ if p='ERROR' or p='' then p=page /if
+
+ if p=page and right(page,8)='.overlay' then
+  GLOBAL_GOTO_PAGE=getenv('HTTP_REFERER')
+  if GLOBAL_GOTO_PAGE='' then
+   GLOBAL_GOTO_PAGE=getlink('/apps/clear/externaloverlayerror.html','ERROR_PAGE',page)
+  /if
+ else
+  GLOBAL_GOTO_PAGE=p
+ /if
+
+ if CLEAR_ajaxrequest()='TRUE' then
+  if p=page or count(p,'.')=0 or count(p,'.overlay')=1 then
+   if p=page then
+    text=^o=CLEAR_PUSH_DIVSTORE()^
+    f=^/apps/clear/goto_ajax.lib^
+   else
+    # looks like we are performing a goto to another overlay, we will let that overlay do the ajax thing /#
+    p=getlink(p,'ajaxrequest','TRUE')
+    text=^goto "^+p+^"^
+    f=^/apps/clear/goto_page.lib^
+   /if
+  else
+   # Do a goto inside the ajax environment /#
+   if left(p,7)='http://' or left(p,8)='https://' then
+    o=runSCRIPT(^window.location='^+p+^';^)
+   else
+    o=runSCRIPT(^window.location='^+getlink(p)+^';^)
+   /if
+   text=^o=CLEAR_PUSH_DIVSTORE()^
+   f=^/apps/clear/goto_ajax.lib^
+  /if
+ else
+  # no ajax so... we just do the goto, we also clear any AJAX related variables first /#
+  CLEAR_DIVSTORE='ERROR'
+  ajaxrequest='ERROR'
+  ajax.CLICKED='ERROR'
+  text=^goto "^+GLOBAL_GOTO_PAGE+^"^
+  f=^/apps/clear/goto_page.lib^
+ /if
+ if version<4.5 then
+  return f /return
+ else
+  expand text /expand
+ /if
+/function
+
+
+
+
+
+function updateVARS(list) locals x,y do
+ if rows(list)=1 and count(list,' ')>0 then
+  if count(list,',')>0 then
+   list=split(list,',')
+  else
+   list=split(list,' ')
+  /if
+ /if
+ for name=list rowname=x do
+  x[1]=trim(x[1])
+  y=CLEAR_arrayJS(@x[1])
+  o=writeHTML('evalJS',^CLEAR.f.setvalue('^+x[1]+^',^+y+^);^)
+ /for
+/function
+
+function CLEAR_arrayJS(x) locals i,j do
+ j='['
+ for name=i value=1 to rows(x) do
+  j=j+'"'+replaceall(replaceall(x[1,i],'"','\"'),lf,'\n')+'",'
+ /for
+ j=left(j,length(j)-1)+']'
+ return j /return
+/function
+
+
+
+
+
+function writeHTML(id,html) locals temp do
+ temp[1]=id temp[2]=html
+ CLEAR_DIVSTORE=appends(CLEAR_DIVSTORE,temp)
+ return '' /return
+/function
+
+
+
+
+
+function appendHTML(id,html) locals temp do
+ temp[1]=id temp[2]=html temp[3]='APPEND'
+ CLEAR_DIVSTORE=appends(CLEAR_DIVSTORE,temp)
+ return '' /return
+/function
+
+
+function prependHTML(id,html) locals temp do
+ temp[1]=id temp[2]=html temp[3]='PREPEND'
+ CLEAR_DIVSTORE=appends(CLEAR_DIVSTORE,temp)
+ return '' /return
+/function
+
+
+
+
+
+function runSCRIPT(js) do
+ o=writeHTML('evalJS',js)
+ return '' /return
+/function
+
+
+
+
+
+function ajax.clicked() locals temp,a do
+ if AJAX.clicked<>"ERROR" then return AJAX.clicked /return /if
+ a=getenv('QUERY_STRING')
+ if a="ERROR" or a='' then a=sysstdin else if sysstdin<>'ERROR' and sysstdin<>'' then a=a+'&'+sysstdin /if /if
+ if count(a,'AJAX.clicked=')>0 then
+  AJAX.clicked=chopchopleftright(a,'AJAX.clicked=','&')
+ /if
+ if AJAX.clicked="form" then AJAX.clicked=HTMLOS.CLICKED /if
+ return AJAX.clicked /return
+/function
+
+
+function chopchopleft(a,b)        do return replace(chopleft(a,b),b,'')                    /return /function
+function chopchopright(a,b)       do return reverse(replace(reverse(chopright(a,b)),b,'')) /return /function
+function chopchopleftright(a,b,c) do return chopchopright(chopchopleft(a,b),c)             /return /function
+
+function showonce(a) locals b do b=@a @a='ERROR' if b='ERROR' then b='' /if return b /return /function
+
+
+
+
+function showtable(tab) locals a,b,c do
+ a="<table cellspacing=1 cellpadding=3>"
+ for name=tab rowname=b do
+  a=a+"<tr>"
+  for name=b colname=c do
+   a=a+"<td bgcolor=#a0b0b1>"+c[1]+"</td>"
+  /for
+  a=a+"</tr>"
+ /for
+ a=a+"</table>"
+ return a /return
+/function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function appends(a,b) do
+ if b='' or b='ERROR' then return a /return /if
+ if a='ERROR' or a='' then return b /return else
+ return append(a,b) /return /if
+/function
+
+
+
+
+
+function select_option(v,list) locals x,y do
+ y=' value="'+v+'" '
+ for name=list rowname=x do
+  if x[1]=v then y=y+'SELECTED ' /if
+ /for
+ return y /return
+/function
+function arrayJS(x) locals i,j do
+ j='['
+ for name=i value=1 to rows(x) do
+  j=j+'"'+replaceall(replaceall(x[1,i],'"','\"'),lf,'\n')+'",'
+ /for
+ j=left(j,length(j)-1)+']'
+ return j /return
+/function
+
+
+
+
+
+function CLEAR_ajaxrequest() locals temp,a do
+ if ajaxrequest="TRUE"   then return "TRUE" /return /if
+ if ajaxrequest="IFRAME" then return "TRUE" /return /if
+ a=getenv('QUERY_STRING')
+ if a="ERROR" or a='' then a=sysstdin /if
+ if count(a,'ajaxrequest=TRUE')>0 or ajaxrequest="TRUE" then
+  ajaxrequest="TRUE"
+  return 'TRUE' /return
+ elif count(a,'ajaxrequest=IFRAME')>0 or ajaxrequest="IFRAME" then
+  ajaxrequest="IFRAME"
+  return 'TRUE' /return
+ else
+  return 'FALSE' /return
+ /if
+/function
+
+
+
+
+
+function CLEAR_JSONescape(text) do
+ text=replaceall(text,'\','\\')
+ text=replaceall(text,'"','\"')
+ text=replaceall(text,"'","\'")
+ text=replaceall(text,'/','\/')
+ text=replaceall(text,lf,'\n')
+ text=replaceall(text,cr,'\r')
+ return text /return
+/function
+
+
+
+
+
+function CLEAR_PUSH_DIVSTORE() locals divs,x,temp,temp1,q,text,ar,d do
+ q='' temp=''
+ if CLEAR_DIVSTORE<>'' and CLEAR_DIVSTORE<>'ERROR' then
+  for name=CLEAR_DIVSTORE rowname=x do
+   if x[1]='evalJS' then
+    temp=temp+x[2]+lf
+   else
+    if x[3]="APPEND" then
+     q=q+x[1]+' '
+     temp=temp+^CLEAR.f.$('^+x[1]+^').innerHTML+='^+CLEAR_JSONescape(x[2])+^';^+lf
+    elif x[3]="PREPEND" then
+     q=q+x[1]+' '
+     temp=temp+^CLEAR.f.$('^+x[1]+^').innerHTML='^+CLEAR_JSONescape(x[2])+^' + CLEAR.f.$('^+x[1]+^').innerHTML ;^+lf
+    else
+     q=q+x[1]+' '
+     temp=temp+^CLEAR.f.$('^+x[1]+^').innerHTML='^+CLEAR_JSONescape(x[2])+^';^+lf
+    /if
+   /if
+  /for
+ /if
+ temp=temp+^CLEAR.f.ajaxForms(CLEAR.a.forms);^+lf
+ temp=temp+^CLEAR.f.ajaxAnchors(CLEAR.a.anchors);^+lf
+ temp=temp+^CLEAR.f.ajaxInputs(CLEAR.a.inputs);^+lf
+ temp=temp+^CLEAR.f.report('info','DIV Updates Complete: ^+q+^');^
+ d=now d=lf+
+ "Expires: Mon, 26 Jul 1997 05:00:00 GMT"+lf+
+ "Last-Modified: "+left(getweekday(d,'short'),3)+', '+getday(d)+' '+getmonth(d,'short')+' '+getyear(d,'long')+' 23:59:59 GMT'+lf+
+ "Cache-Control: no-cache, must-revalidate"+lf+
+ "Pragma: no-cache"
+ CLEAR_DIVSTORE='ERROR'
+ ajax.CLICKED='ERROR'
+ if ajaxrequest='IFRAME' then
+  ajaxrequest='ERROR'
+  temp=replaceall(temp,'&lt;','&#60;')
+  temp=replaceall(temp,'&gt;','&#62;')
+  temp=replaceall(temp,'&amp;','&#38;')
+  temp=replaceall(temp,'<','&lt;')
+  webpush(temp,"text/plain;charset=UTF-8"+d)
+ else
+  ajaxrequest='ERROR'
+  webpush('//CLEAR.js'+lf+temp,"application/javascript;charset=UTF-8"+d)
+ /if
+/function
+
+
+
+
+function AJAXpush(c,t) locals d do
+ d=now d=lf+
+ "Expires: Mon, 26 Jul 1997 05:00:00 GMT"+lf+
+ "Last-Modified: "+left(getweekday(d,'short'),3)+', '+getday(d)+' '+getmonth(d,'short')+' '+getyear(d,'long')+' 23:59:59 GMT'+lf+
+ "Cache-Control: no-cache, must-revalidate"+lf+
+ "Pragma: no-cache"
+ CLEAR_DIVSTORE='ERROR'
+ ajax.CLICKED='ERROR'
+ ajaxrequest='ERROR'
+ webpush(c,t+d)
+/function

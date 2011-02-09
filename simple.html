@@ -1,0 +1,26 @@
+<<
+expand file="/apps/clear/clear.lib" /expand
+>>
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <title>Simple AJAX demo</title>
+  <script src="<<syspublicurl>>/apps/clear/clear.js"></script>
+ </head>
+ <body>
+  <a href="/clearimage/editor.html" name="ci_programparams" value="/apps/clear/simple.html|||||READONLY" target="demosource">View simple.html source code</a><br>
+  <a href="<<page>>">RELOAD</a><hr>
+  <h1 id="myhead">
+   <<if myinput='' or myinput='ERROR' then display '[EDIT]' /display else display myinput /display /if>>
+  </h1>
+  <hr>
+  <form action="doit" AJAX>
+   HEADING:<input type="text" name="myinput" AJAX>
+  </form>
+ </body>
+</html>
+<<overlay doit
+ writeHTML('myhead',myinput)
+ endoverlay()
+>>
