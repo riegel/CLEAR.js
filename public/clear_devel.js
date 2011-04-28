@@ -14,15 +14,6 @@
 // STEP 4: ^ [do step 3 again]
 //
 //
-// A Simple SMTP server to take email attachments and post them to the web
-// The basic server is running and accepting connections
-// It doesn't understand much yet, but can carry on a conversation 
-// with other SMTP Servers
-//
-// This code has sharp edges beware, and is heavily in production
-// you can contact me with comments riegel@clearimageonline.com
-//
-//
 //
 //
 // Copyright (c) 2010 Terry Riegel
