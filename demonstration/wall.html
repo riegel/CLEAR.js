@@ -1,0 +1,60 @@
+<<
+expand file='/apps/clear/clear.lib' /expand
+wallfile='wall/'+getmonth(now)+'_'+getyear(now)+'.txt'
+copy file=wallfile to wall /copy
+if wall='ERROR' then
+ wallinit='ERROR'
+ wall='<i>no wall posts so far today - be the first to post this month</i>'
+else
+ wallinit='TRUE'
+/if
+timer=systime
+>>
+<html>
+ <head>
+  <title>CLEAR.js Sample Wall</title>
+  <link rel="stylesheet" href="/apps/clear/demonstration/style.css" type="text/css" media="screen" />
+  <link rel="shortcut icon" type="image/x-icon" href="/apps/clear/demonstration/images/favicon.ico"/>
+  <link rel="icon" type="image/png" href="/apps/clear/demonstration/images/favicon.png"/>
+  <script src="/apps/clear/clear.js"></script>
+ </head>
+ <body>
+  <div id="page-container">
+   <div id="demo">
+    <a href="http://clearjs.org">Home</a> | 
+    <<ci_edit2(page,800,600,'View Source','READONLY')>><br>
+    <h1>This Month's Wall</h1>
+    <i><<getdate(now,'long')>></i><hr>
+    <div id="wall"><<replaceall(wall,lf,'<br>')>></div>
+    <hr>
+    <form action="addtowall" method="post" AJAX>
+     Name:<input type="text" name="myname" size="10">
+     Post:<input type="text" name="mycomment" AJAX size="50" id="mc">
+     <input type="submit" name="mybutton" value="Post">
+    </form>
+    <hr>This is a very simple wall application. It is designed to show how easy it is to build an AJAX application with the clear.js library. Take a look at the server code to see it is only 46 lines of server side code, and 22 lines of client side html.
+   </div>
+  </div>
+ </body>
+</html>
+<<overlay addtowall
+ if systime-timer>1000 then # Only allow posts within 1 second of each other /#
+  timer=systime
+  if myname<>'' and myname<>'ERROR' and mycomment<>'' and mycomment<>'ERROR' then
+   thiscomment='['+myname+' - <i>'+now+'</i>] <b>'+mycomment+'</b>'+lf
+   append thiscomment to file=wallfile /append
+   sysfixprivate(wallfile)
+   if wallinit='ERROR' then
+    writeHTML('wall',replaceall(thiscomment,lf,'<br>'))
+   else
+    appendHTML('wall',replaceall(thiscomment,lf,'<br>'))
+   /if
+  /if
+  mycomment='' wallinit='TRUE'
+  updatevars('mycomment')
+  runscript(^CLEAR.f.$('mc').focus();^)
+ else
+  timer=systime
+ /if
+ endOVERLAY()
+>>

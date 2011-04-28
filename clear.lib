@@ -86,9 +86,12 @@ function CLEAR_arrayJS(x) locals i,j do
 
 
 
+function onceHTML(a) locals b do a='CLEAR_'+a b=@a @a='ERROR' if b='ERROR' or GLOBALRESET='TRUE' then b='' /if return b /return /function
 
 
 function writeHTML(id,html) locals temp do
+ temp='CLEAR_'+id
+ @temp=html
  temp[1]=id temp[2]=html
  CLEAR_DIVSTORE=appends(CLEAR_DIVSTORE,temp)
  return '' /return
@@ -140,8 +143,12 @@ function chopchopleft(a,b)        do return replace(chopleft(a,b),b,'')         
 function chopchopright(a,b)       do return reverse(replace(reverse(chopright(a,b)),b,'')) /return /function
 function chopchopleftright(a,b,c) do return chopchopright(chopchopleft(a,b),c)             /return /function
 
-function showonce(a) locals b do b=@a @a='ERROR' if b='ERROR' then b='' /if return b /return /function
+function showonce(a) locals b do b=@a @a='ERROR' if b='ERROR' or GLOBALRESET='TRUE' then b='' /if return b /return /function
 
+function reset() do
+ GLOBALRESET='ERROR'
+ return '' /return
+/function
 
 
 
@@ -241,7 +248,7 @@ function CLEAR_JSONescape(text) do
 
 
 
-function CLEAR_PUSH_DIVSTORE() locals divs,x,temp,temp1,q,text,ar,d do
+function CLEAR_PUSH_DIVSTORE() locals divs,x,temp,temp1,q,text,ar,d,tp,o do
  q='' temp=''
  if CLEAR_DIVSTORE<>'' and CLEAR_DIVSTORE<>'ERROR' then
   for name=CLEAR_DIVSTORE rowname=x do
@@ -257,6 +264,7 @@ function CLEAR_PUSH_DIVSTORE() locals divs,x,temp,temp1,q,text,ar,d do
     else
      q=q+x[1]+' '
      temp=temp+^CLEAR.f.$('^+x[1]+^').innerHTML='^+CLEAR_JSONescape(x[2])+^';^+lf
+     tp='CLEAR_'+x[1] @tp='ERROR' tp='ERROR'
     /if
    /if
   /for
@@ -278,17 +286,17 @@ function CLEAR_PUSH_DIVSTORE() locals divs,x,temp,temp1,q,text,ar,d do
   temp=replaceall(temp,'&gt;','&#62;')
   temp=replaceall(temp,'&amp;','&#38;')
   temp=replaceall(temp,'<','&lt;')
-  webpush(temp,"text/plain;charset=UTF-8"+d)
+  o=webpush(temp,"text/plain;charset=UTF-8"+d)
  else
   ajaxrequest='ERROR'
-  webpush('//CLEAR.js'+lf+temp,"application/javascript;charset=UTF-8"+d)
+  o=webpush('//CLEAR.js'+lf+temp,"application/javascript;charset=UTF-8"+d)
  /if
 /function
 
 
 
 
-function AJAXpush(c,t) locals d do
+function AJAXpush(c,t) locals d,o do
  d=now d=lf+
  "Expires: Mon, 26 Jul 1997 05:00:00 GMT"+lf+
  "Last-Modified: "+left(getweekday(d,'short'),3)+', '+getday(d)+' '+getmonth(d,'short')+' '+getyear(d,'long')+' 23:59:59 GMT'+lf+
@@ -297,5 +305,5 @@ function AJAXpush(c,t) locals d do
  CLEAR_DIVSTORE='ERROR'
  ajax.CLICKED='ERROR'
  ajaxrequest='ERROR'
- webpush(c,t+d)
+ o=webpush(c,t+d)
 /function

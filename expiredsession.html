@@ -1,0 +1,11 @@
+<<
+# This code is general error handling for any AJAX request that is attempted from an expired link /#
+if count(getenv('QUERY_STRING'),'ajaxrequest')>0 or count(sysstdin,'ajaxrequest')>0 then
+ expand file="/apps/clear/clear.lib" /expand
+ runSCRIPT(^expiredAJAX();^)
+ endOVERLAY()
+/if
+>>
+<html>
+ <h1>Expired Session</h1>
+</html>

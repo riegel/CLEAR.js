@@ -1,0 +1,86 @@
+<< # This will only run under clearjs.org /# >>
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <title>CLEAR.js AJAX Library for HTML/OS</title>
+  <link rel="stylesheet" href="/apps/clear/demonstration/style.css" type="text/css" media="screen" />
+  <link rel="shortcut icon" type="image/x-icon" href="/apps/clear/demonstration/images/favicon.ico"/>
+  <link rel="icon" type="image/png" href="/apps/clear/demonstration/images/favicon.png"/>
+  <style type="text/css" media="screen">
+   #header{padding-top:50px;}
+   #header h1{width:505px;height:137px;margin-bottom:0;background-image:url(/apps/clear/demonstration/images/logo.png);}
+   pre    {border: 1px solid black; padding: 10px; background-color: white; font-size: 10pt;}
+  </style>
+ </head>
+ <body>
+  <div id="page-container">
+   <div id="header">
+    <h1>CLEAR.js, AJAX Library for HTML/OS</h1>
+    <p>
+     <span>
+      An "invisible" AJAX Library. Add AJAX to any link, form, or form element on any page.
+     </span>
+    </p>
+   </div>
+   <div id="content">
+    <div style="padding: 5px; padding-left: 120px; padding-right: 120px;">
+<pre>
+With your normal forms, elements, or links...
+ &lt;form action="doform"&gt;
+ &lt;input type="text" name="myname"&gt;
+ &lt;input type="text" name="myemail"&gt;
+ &lt;a href="page.html"&gt;Link&lt;/a&gt;
+
+Simply add AJAX...
+ &lt;form action="doform" AJAX&gt;
+ &lt;input type="text" name="myname" AJAX&gt;
+ &lt;input type="text" name="myemail" AJAX="mousedown"&gt;
+ &lt;a href="page.html" AJAX&gt;Link&lt;/a&gt;
+</pre>
+    </div>
+    <p class="download link"><strong><a exithref="/home/clearjs.bb">Download .bb file</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/wall.html">Sample Wall</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/simple.html">See Simple Demonstration</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/announcement.html">Announcement Demonstration</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/periodical.html">Auto Refresh Demonstration</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/demo.html">See Fuller Demonstration</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/why.html">Why another AJAX library?</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/other.html">RE: non-HTML/OS environments?</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/usecase.html">A use case for clear.js?</a></strong></p>
+    <p class="doc link"><strong><a exithref="/app/clear/demonstration/documentation.html">Documentation</a></strong></p>
+    <div class="features">
+     <div class="first">
+      <h2>Library Features</h2>
+      <ul>
+       <li>Standalone</li>
+       <li>Fast</li>
+       <li>17KB on the client</li>
+       <li>Uses existing links and forms</li>
+       <li>Tested with IE6,7, and 8, Safari, Firefox, and Chrome</li>
+       <li><i>should work with all newer javascript enabled browsers.</i></li>
+      </ul>
+     </div>
+     <div>
+      <h2>Client HTML Features</h2>
+      <ul>
+       <li>Simply Add the keyword "AJAX" to forms, form elements and links on any page.</li>
+       <li>AJAX with no javascript code.</li>
+       <li>AJAX Uploads, no Flash</li>
+       <li>Multiple File Uploads</li>
+      </ul>
+     </div>
+     <div>
+      <h2>Server HTML/OS Features</h2>
+      <ul>
+       <li>use writeHTML(element,html) in overlays just like the display tag</li>
+       <li>ERRORS are handled gracefully making debugging your code easy</li>
+       <li>Overlays no longer use goto, use endOVERLAY() or AJAXgoto('otherpage') instead</li>
+      </ul>
+     </div>
+    </div>
+    <h2><center>comments/questions/improvements... riegel (at) clearimageonline (dot) com</center></h2>
+   </div>
+  </div>
+ </body>
+</html>
