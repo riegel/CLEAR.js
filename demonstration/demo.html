@@ -98,7 +98,7 @@ function myfiles(p) locals temp,x,y do
  <body>
   <div id="page-container">
    <div id="demowide">
-    <a href="http://clearjs.org">Home</a> | 
+    <a href="<<mvcurl('/')>>">Home</a> | 
     <<ci_edit2('/apps/clear/clear_devel.js',800,600,'View Javascript Source','READONLY')>> | 
     <<ci_edit2('/apps/clear/clear.lib',800,600,'View Library Source','READONLY')>> | 
     <<ci_edit2(page,800,600,'View Source','READONLY')>><br>&nbsp;<br>
@@ -149,15 +149,15 @@ function myfiles(p) locals temp,x,y do
       <div id="select">
        <table><tr><td>
         <select name="mycar" multiple="10" data-AJAX>
-         <option <<select_option("ford",mycar)>> >Ford</option>
-         <option <<select_option("chevy",mycar)>> >Chevy</option>
-         <option <<select_option("chrysler",mycar)>> >Chrysler</option>
-         <option <<select_option("volvo",mycar)>> >Volvo</option>
-         <option <<select_option("saab",mycar)>> >Saab</option>
-         <option <<select_option("mercedes",mycar)>> >Mercedes</option>
-         <option <<select_option("honda",mycar)>> >Honda</option>
-         <option <<select_option("toyota",mycar)>> >Toyota</option>
-         <option <<select_option("subaru",mycar)>> >Subaru</option>
+         <option <<select_option("mycar","ford")>> >Ford</option>
+         <option <<select_option("mycar","chevy")>> >Chevy</option>
+         <option <<select_option("mycar","chrysler")>> >Chrysler</option>
+         <option <<select_option("mycar","volvo")>> >Volvo</option>
+         <option <<select_option("mycar","saab")>> >Saab</option>
+         <option <<select_option("mycar","mercedes")>> >Mercedes</option>
+         <option <<select_option("mycar","honda")>> >Honda</option>
+         <option <<select_option("mycar","toyota")>> >Toyota</option>
+         <option <<select_option("mycar","subaru")>> >Subaru</option>
         </select>
        </td><td>
         <a href="pickcontinent" name="mycontinent" value="North America" data-AJAX>North America</a><br>

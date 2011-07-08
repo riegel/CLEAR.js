@@ -192,15 +192,27 @@ function appends(a,b) do
 
 
 
+function checked_option(n,v) locals x,y,list do
+ list=@n
+ y=' name="'+n+'" value="'+v+'" '
+ for name=list rowname=x do
+  if x[1]=v then y=y+'CHECKED ' /if
+ /for
+ return y /return
+/function
 
-
-function select_option(v,list) locals x,y do
+function select_option(n,v) locals x,y,list do
+ list=@n
  y=' value="'+v+'" '
  for name=list rowname=x do
   if x[1]=v then y=y+'SELECTED ' /if
  /for
  return y /return
 /function
+
+
+
+
 function arrayJS(x) locals i,j do
  j='['
  for name=i value=1 to rows(x) do
@@ -269,9 +281,11 @@ function CLEAR_PUSH_DIVSTORE() locals divs,x,temp,temp1,q,text,ar,d,tp,o do
    /if
   /for
  /if
+# Removing this from the server side, implementing it client side 
  temp=temp+^CLEAR.f.ajaxForms(CLEAR.a.forms);^+lf
  temp=temp+^CLEAR.f.ajaxAnchors(CLEAR.a.anchors);^+lf
  temp=temp+^CLEAR.f.ajaxInputs(CLEAR.a.inputs);^+lf
+/#
  temp=temp+^CLEAR.f.report('info','DIV Updates Complete: ^+q+^');^
  d=now d=lf+
  "Expires: Mon, 26 Jul 1997 05:00:00 GMT"+lf+

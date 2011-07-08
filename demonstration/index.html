@@ -12,6 +12,16 @@
    #header h1{width:505px;height:137px;margin-bottom:0;background-image:url(/apps/clear/demonstration/images/logo.png);}
    pre    {border: 1px solid black; padding: 10px; background-color: white; font-size: 10pt;}
   </style>
+  <script>
+   O='';o='';function Debug(){o=prompt(O,o);try{O=eval(o);}catch(e){O=e;}if(o!==null)Debug();}
+    function check(e){
+     if(e.touches[0].screenY<10){ G=e; Debug();}
+    }
+   window.onload=onBodyLoad;
+   function onBodyLoad(){
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); check(e);}, false);
+   }
+  </script>
  </head>
  <body>
   <div id="page-container">
@@ -40,15 +50,15 @@ Simply add AJAX...
 </pre>
     </div>
     <p class="download link"><strong><a exithref="/home/clearjs.bb">Download .bb file</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/wall.html">Sample Wall</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/simple.html">See Simple Demonstration</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/announcement.html">Announcement Demonstration</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/periodical.html">Auto Refresh Demonstration</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/demo.html">See Fuller Demonstration</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/why.html">Why another AJAX library?</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/other.html">RE: non-HTML/OS environments?</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/usecase.html">A use case for clear.js?</a></strong></p>
-    <p class="doc link"><strong><a exithref="/app/clear/demonstration/documentation.html">Documentation</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/wall.html')>>">Sample Wall</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/simple.html')>>">See Simple Demonstration</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/announcement.html')>>">Announcement Demonstration</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/periodical.html')>>">Auto Refresh Demonstration</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/demo.html')>>">See Fuller Demonstration</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/why.html')>>">Why another AJAX library?</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/other.html')>>">RE: non-HTML/OS environments?</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/usecase.html')>>">A use case for clear.js?</a></strong></p>
+    <p class="doc link"><strong><a exithref="<<mvcurl('/app/clear/demonstration/documentation.html')>>">Documentation</a></strong></p>
     <div class="features">
      <div class="first">
       <h2>Library Features</h2>

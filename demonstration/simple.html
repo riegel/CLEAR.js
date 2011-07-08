@@ -14,7 +14,7 @@ expand file="/apps/clear/clear.lib" /expand
  <body>
   <div id="page-container">
    <div id="demo">
-    <a href="http://clearjs.org">Home</a> |
+    <a href="<<mvcurl('/')>>">Home</a> |
     <<ci_edit2(page,800,600,'View Source','READONLY')>><br>
     <h1 id="myhead">
      <<if myinput='' or myinput='ERROR' then display '[EDIT]' /display else display myinput /display /if>>

@@ -69,10 +69,11 @@ function writeHTML(div,content){
 
 
 
-if(typeof AJAXready   != "function") {AJAXready=function(){};}
-if(typeof onAJAX      != "function") {onAJAX=function(){};   }
-if(typeof afterAJAX   != "function") {afterAJAX=function(){};}
-if(typeof expiredAJAX != "function") {expiredAJAX=function(){CLEAR.f.dialog('Expired Link','The AJAX you attempted to run is requesting a link that has expired.<br>To handle expired links add a function called expiredAJAX(element) to your application.');};}
+if(typeof AJAXready    != "function") {AJAXready=function(){};}
+if(typeof onAJAX       != "function") {onAJAX=function(){};   }
+if(typeof afterAJAX    != "function") {afterAJAX=function(){};}
+if(typeof expiredAJAX  != "function") {expiredAJAX=function(){CLEAR.f.dialog('Expired Link','The AJAX you attempted to run is requesting a link that has expired.<br>To handle expired links add a function called expiredAJAX(element) to your application.');};}
+if(typeof progressAJAX != "function") {progressAJAX=function(){};}
 if(typeof writeHTML   != "function") {writeHTML=function(div,content){CLEAR.f.$(div).innerHTML=content;};}
 if(typeof appendHTML  != "function") {appendHTML=function(div,content){CLEAR.f.$(div).innerHTML+=content;};}
 if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.$(div).innerHTML=content+CLEAR.f.$(div).innerHTML;};}
@@ -119,10 +120,7 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
       CLEAR.f.ajaxInputs(CLEAR.a.inputs);
       CLEAR.loaded=true;
       CLEAR.f.report('info','AJAX Ready!');
-
-
-
-      if (typeof CLEAR.a.onload === 'function'){ CLEAR.a.onload(CLEAR.a);}
+      if (typeof CLEAR.a.onload === 'function'){ CLEAR.a.onload();}
       break;
      }
     }
@@ -600,7 +598,7 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
          if (getEls[i].type=='file')        {hasfilefield   = true;}
        }
        if(typeof CLEAR.a.useAIM == "undefined") {CLEAR.a.useAIM=false;}
-       if((typeof FormData != 'object' && hasfilefield) || CLEAR.a.useAIM){
+       if((typeof FormData == 'undefined' && hasfilefield) || CLEAR.a.useAIM){
         proc=CLEAR.f.processing(true,el);
         if (proc === false){return proc;}
         if (hasAjaxRequest===false){
@@ -611,6 +609,9 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
          el.insertBefore(newdiv,el.firstChild);
         }
         el.action=el.action.replace('?ajaxrequest=IFRAME','')+'?ajaxrequest=IFRAME';
+
+// console.info('AIM');
+
         CLEAR.f.AIM.submit(el);
         // The AIM method doesn't actually submit the form, it simply creates a new target
         // that is why we end this with return true, the browser will do the submission
@@ -620,7 +621,7 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
          return true;
         }
        } else {
-        CLEAR.f.doAJAX(el,el.action,el.method,CLEAR.f.serialize(el,sendtype,elem),hasfilefield);
+        CLEAR.f.doAJAX(elem,el.action,el.method,CLEAR.f.serialize(el,sendtype,elem),hasfilefield);
         return false;
        }
     }
@@ -757,6 +758,11 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
 
 
    doAJAX: function(element,action,method,params,mime){
+
+
+// console.info(element,action,method,params,mime);
+
+
     var boundary;
     var proc=true;
     var ajax=[];
@@ -768,7 +774,6 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
     // Send AJAX with HTML 5 progress
     // Send AJAX as URL encoded string
     // Send as GET request
-
 
     if (method.toLowerCase() === 'post' || mime){
      if (mime && typeof FormData == 'object') {
@@ -1141,6 +1146,9 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
     if (i){
      if(typeof onAJAX == "function") {return onAJAX(el,c);}
     } else {
+     CLEAR.f.ajaxForms(CLEAR.a.forms);
+     CLEAR.f.ajaxAnchors(CLEAR.a.anchors);
+     CLEAR.f.ajaxInputs(CLEAR.a.inputs);
      if(typeof afterAJAX == "function") {return afterAJAX(el,c);}
     }
    },
