@@ -1,6 +1,4 @@
 <<
-expand file="/apps/clear/clear.lib" /expand
-
 if message="ERROR" then message="" /if
 if mycolor="ERROR" then mycolor="RED" /if
 myrandom=random(10000,99999)
@@ -98,9 +96,9 @@ function myfiles(p) locals temp,x,y do
  <body>
   <div id="page-container">
    <div id="demowide">
-    <a href="<<mvcurl('/')>>">Home</a> | 
+    <a href="<<route('/home')>>">Home</a> | 
     <<ci_edit2('/apps/clear/clear_devel.js',800,600,'View Javascript Source','READONLY')>> | 
-    <<ci_edit2('/apps/clear/clear.lib',800,600,'View Library Source','READONLY')>> | 
+    <<ci_edit2('/system/clearimage/libraries/clearjs.lib',800,600,'View Library Source','READONLY')>> | 
     <<ci_edit2(page,800,600,'View Source','READONLY')>><br>&nbsp;<br>
     <form action="dosomething" method="post" tag="<<page>>" data-AJAX>
      <table><tr><td valign="top">
@@ -242,11 +240,11 @@ function myfiles(p) locals temp,x,y do
    message=message+'Cheese is required, it has been added.'
   /if
   o=updateVARS('mytopping')
-  message=message+'<br>'+rows(mytopping)+' topping(s)<br>'+showtable(mytopping)
+  message=message+'<br>'+rows(mytopping)+' topping(s)<br>'+ci_table(mytopping)
  elif AJAX.clicked()='mycolor' then
   o=AJAXgoto('switchcolor')
  elif AJAX.clicked()='mycar' then
-  message=message+rows(mycar)+' car maker(s)<br>'+showtable(mycar)
+  message=message+rows(mycar)+' car maker(s)<br>'+ci_table(mycar)
  elif AJAX.clicked()='mybutton' and mybutton="submit" then
   if myname="Admin" or myname="" or myname="ERROR" or mypass="" or mypass="ERROR" or length(mypass)<8 then
    message=message+'Username/Password cannot be blank or Admin, Also password must be 8 characters at least.'
@@ -304,7 +302,7 @@ function myfiles(p) locals temp,x,y do
   mytopping=appends(mytopping,"onions")
   mytopping=appends(mytopping,"peppers")
  /if
- o=writeHTML('message',message+'Pizza Changed to: '+mypizza+'<br>'+showtable(mytopping)) message="ERROR"
+ o=writeHTML('message',message+'Pizza Changed to: '+mypizza+'<br>'+ci_table(mytopping)) message="ERROR"
  o=updateVARS('mytopping')
  o=endOVERLAY()
 >>
@@ -333,7 +331,7 @@ function myfiles(p) locals temp,x,y do
  elif mycontinent='Africa' then
   mycar="ERROR"
  /if
- o=writeHTML('message',message+'Cars from: '+mycontinent+'<br>'+showtable(mycar)) message="ERROR"
+ o=writeHTML('message',message+'Cars from: '+mycontinent+'<br>'+ci_table(mycar)) message="ERROR"
  o=updateVARS('mycar')
  o=endOVERLAY()
 >>

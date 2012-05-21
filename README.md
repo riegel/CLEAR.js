@@ -21,7 +21,7 @@ Simply add AJAX...
 Your HTML/OS pages look like this
 
     <<
-    expand file="/apps/clear/clear.lib" /expand
+    expand file="/system/clearimage/DLL.lib" /expand
     >>
     <!doctype html>
     <html lang="en">

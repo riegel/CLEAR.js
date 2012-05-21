@@ -8,8 +8,8 @@ note: If you are using this on a version of HTML/OS prior to 4.50 please see com
  ---------------
       <script src="<<syspublicurl>>/apps/clear/clear.js"></script>
 
-    - Also with HTML/OS be sure to expand the clear.lib file
-      <<expand file="/apps/clear/clear.lib" /expand>>
+    - Also with HTML/OS be sure to expand the DLL.lib file
+      <<expand file="/system/clearimage/DLL.lib" /expand>>
 
 
  Applying AJAX
@@ -121,10 +121,10 @@ note: If you are using this on a version of HTML/OS prior to 4.50 please see com
 
  1. Variable expands - there are two considerations with variable expands in prior versions
     a. Variable expands can be disabled
-    b. clear.lib uses a variable expand inside of a function to keep the syntax simple but in pre 4.5 versions this causes an
+    b. clearjs.lib uses a variable expand inside of a function to keep the syntax simple but in pre 4.5 versions this causes an
        'out of memory' condition
 
-    Both of these conditions have been accounted for with clear.lib and version sniffing, but will require a slight modification to your code...
+    Both of these conditions have been accounted for with clearjs.lib and version sniffing, but will require a slight modification to your code...
     Usually you would end an overlay with endOVERLAY() --OR-- ajaxGOTO('otherPageOrOverlay')
 
     On pre 4.5 versions use this instead...

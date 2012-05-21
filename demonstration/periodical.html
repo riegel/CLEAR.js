@@ -1,5 +1,4 @@
 <<
-expand file="/apps/clear/clear.lib" /expand
 function nows() do return now+':'+right('x00'+tagresults[7],2) /return /function
 updates=0
 >>
@@ -19,7 +18,7 @@ updates=0
  <body>
   <div id="page-container">
    <div id="demo">
-    <a href="<<mvcurl('/')>>">Home</a> | 
+    <a href="<<route('/')>>">Home</a> | 
     <<ci_edit2(page,800,600,'View Source','READONLY')>><br>
     <h1>Time at Server. Updates about every 5 seconds.</h1>
     <div id="mydiv">
