@@ -1,0 +1,10 @@
+# expand this library in your restart page        /#
+# expand file="/apps/clear/restart.lib" /expand   /#
+
+if count(getenv('QUERY_STRING'),'ajaxrequest=true')>0 or count(sysstdin,'ajaxrequest=true')>0 or
+   count(getenv('QUERY_STRING'),'ajaxrequest=iframe')>0 or count(sysstdin,'ajaxrequest=iframe')>0
+then
+   expand file="/system/clearimage/DLL.lib" /expand
+   runSCRIPT(^expiredAJAX();^)
+   endOVERLAY()
+/if

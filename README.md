@@ -28,7 +28,7 @@ Your HTML/OS pages look like this
      <head>
       <meta charset="utf-8">
       <title>CLEAR.js Page</title>
-      <script src="<<syspublicurl>>/apps/clear/clear.js"></script>
+      <script src="/apps/clear/clear.js"></script>
      </head>
      <body>
       <a href="doit" AJAX>Link</a>

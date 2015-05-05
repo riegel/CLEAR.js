@@ -1,0 +1,1 @@
+An “invisible” AJAX Library. Add AJAX to any link, form, or form element on any HTML page. Simply add AJAX to forms, elements, or links.

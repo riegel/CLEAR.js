@@ -1,0 +1,48 @@
+
+<!-- Compiled HTML, generated from "/apps/clear/README.md" -->
+
+
+<h1>CLEAR.js</h1>
+
+<p><em>lightweight, unobtrusive, case hardened AJAX library for HTML/OS</em></p>
+
+<p>An "invisible" AJAX Library. Add AJAX to any link, form, or form element on any HTML page</p>
+
+<p>With your normal forms, elements, or links...</p>
+
+<pre><code>&lt;form action="doform"&gt;
+&lt;input type="text" name="myname"&gt;
+&lt;input type="text" name="myemail"&gt;
+&lt;a href="page.html"&gt;Link&lt;/a&gt;
+</code></pre>
+
+<p>Simply add AJAX...</p>
+
+<pre><code>&lt;form action="doform" AJAX&gt;
+&lt;input type="text" name="myname" AJAX&gt;
+&lt;input type="text" name="myemail" AJAX="mousedown"&gt;
+&lt;a href="page.html" AJAX&gt;Link&lt;/a&gt;
+</code></pre>
+
+<p>Your HTML/OS pages look like this</p>
+
+<pre><code>&lt;&lt;
+expand file="/system/clearimage/DLL.lib" /expand
+&gt;&gt;
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+ &lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;CLEAR.js Page&lt;/title&gt;
+  &lt;script src="/apps/clear/clear.js"&gt;&lt;/script&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;a href="doit" AJAX&gt;Link&lt;/a&gt;
+  &lt;div id="thehtmlelement"&gt;Hello World!&lt;/a&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+&lt;&lt;overlay doit
+ writeHTML('thehtmlelement','Hello AJAX World!')
+ endOVERLAY()
+&gt;&gt;
+</code></pre>
