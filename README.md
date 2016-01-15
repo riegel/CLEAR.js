@@ -39,3 +39,7 @@ Your HTML/OS pages look like this
      writeHTML('thehtmlelement','Hello AJAX World!')
      endOVERLAY()
     >>
+
+####Requires clear Image App Manager
+
+Get the App Manager <a href="http://clearimageonline.com/home/appmanager.bb">here</a>.
