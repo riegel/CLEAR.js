@@ -300,26 +300,27 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
     var temp=theform.getElementsByTagName('input');
     for(i = 0; i < temp.length; i++){if (temp[i].type === 'image'){el.push(temp[i]);}}
     for(i = 0; i < el.length; i++){
+     var el_i_name=el[i].name.replace(/\[/g,"%5B").replace(/,/g,"%2C").replace(/\]/g,"%5D");
      if ((el[i].type === 'image' || el[i].type === 'submit') && el[i].isclicked ) {window.status=el[i].value+' in process...'; window.waiting=window.status; obj['ajax.clicked']=el[i].name;}
      if (sendtype && sendtype.toLowerCase() === "inputs" && el[i] != thisel){ajax=el[i].getAttribute('hold') || el[i].getAttribute('data-hold'); if (ajax === ''){ajax=false;} else {ajax=true;}} else {ajax=true;}
      if(((el[i].type === 'radio' || el[i].type === 'checkbox') && el[i].checked) || (el[i].type != 'radio' && el[i].type != 'checkbox') && (el[i].type != 'reset')   && ajax              ){
       if(el[i].type === 'select-multiple' || el[i].type === 'checkbox'){
-       obj[el[i].name]=CLEAR.f.getvalue(el[i].name);
+       obj[el_i_name]=CLEAR.f.getvalue(el[i].name);
       } else if (el[i].type === 'image'){
         if(!(disabled)){
-         obj[el[i].name]=el[i].value;
+         obj[el_i_name]=el[i].value;
          if (el[i].type === 'image'){
-          obj[el[i].name+'.x']=el[i].x;
-          obj[el[i].name+'.y']=el[i].y;
+          obj[el_i_name+'.x']=el[i].x;
+          obj[el_i_name+'.y']=el[i].y;
          } else {
-          obj[el[i].name+'.x']='ERROR';
-          obj[el[i].name+'.y']='ERROR';
+          obj[el_i_name+'.x']='ERROR';
+          obj[el_i_name+'.y']='ERROR';
          }
         }
       } else {
        if (el[i].type == 'file'){
         if (el[i].files){
-         obj[el[i].name]=el[i].files;
+         obj[el_i_name]=el[i].files;
           if (el[i].files[0]){
            for (var q in el[i].files) {
             obj['$'][q]=el[i].files[q];
@@ -329,13 +330,13 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
          // no files property so we degrade
          var temp=el[i].value.split('\\');
          var v=temp[temp.length-1];
-         obj[el[i].name]=v;
+         obj[el_i_name]=v;
         }
        } else {
         if (el[i].type==='submit'){
-         if(el[i].isclicked){ obj[el[i].name]=el[i].value; }
+         if(el[i].isclicked){ obj[el_i_name]=el[i].value; }
         } else {
-         obj[el[i].name]=el[i].value;
+         obj[el_i_name]=el[i].value;
         }
        }
       }
