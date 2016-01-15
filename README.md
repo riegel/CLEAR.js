@@ -43,3 +43,5 @@ Your HTML/OS pages look like this
 ####Requires clear Image App Manager
 
 Get the App Manager <a href="http://clearimageonline.com/home/appmanager.bb">here</a>.
+
+Setup a free server to test over at <a href="http://learnhtmlos.org">http://learnhtmlos.org</a>
