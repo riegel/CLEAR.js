@@ -12,7 +12,10 @@
 //         git rm --cached filename                                     # In case you have a file you don't want
 //         git status
 //         git commit -m "initial project commit"
+//
 //         git remote add origin git@github.com:[username]/[repository]
+//         git remote add origin https://github.com/riegel/htmlosbase
+//
 //         git push origin master
 //
 // STEP 3: git commit -a -m "reason for the commit"                     # new commit, send it out
@@ -343,7 +346,7 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
      }
      el[i].isclicked=false;
     }
-    if(thisel && thisel.name){obj['ajax.clicked']=thisel.name;}
+    if(thisel && thisel.name){if(typeof obj['ajax.clicked'] == 'undefined'){obj['ajax.clicked']=thisel.name;}}
     return obj;
    },
 
