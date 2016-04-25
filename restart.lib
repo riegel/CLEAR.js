@@ -5,6 +5,6 @@ if count(getenv('QUERY_STRING'),'ajaxrequest=true')>0 or count(sysstdin,'ajaxreq
    count(getenv('QUERY_STRING'),'ajaxrequest=iframe')>0 or count(sysstdin,'ajaxrequest=iframe')>0
 then
    expand file="/system/clearimage/DLL.lib" /expand
-   runSCRIPT(^expiredAJAX();^)
+   runSCRIPT(^if(typeof expiredAJAX === 'function'){expiredAJAX();}else{alert('Expired AJAX');}^)
    endOVERLAY()
 /if

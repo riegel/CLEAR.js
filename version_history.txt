@@ -2,3 +2,5 @@
 1.02 01/15/2016 13:35 Added Development Javascript
 1.03 01/18/2016 23:27 Fixed issue where buttons and submits were not sent to ajax.clicked() when the form had a name.
 1.04 01/25/2016 15:31 Week Begin 01/25/2016 Refresh
+1.06 04/15/2016 13:45 Updated Error Dialog
+1.1 04/18/2016 13:42 Added dual purpose 410 Error, Expired link is both valid Javascript and also valid HTML.

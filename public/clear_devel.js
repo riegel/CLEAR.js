@@ -86,7 +86,7 @@ Array.prototype.has=function(v){
 if(typeof AJAXready    != "function") {AJAXready=function(){};}
 if(typeof onAJAX       != "function") {onAJAX=function(){};   }
 if(typeof afterAJAX    != "function") {afterAJAX=function(){};}
-if(typeof expiredAJAX  != "function") {expiredAJAX=function(){CLEAR.f.dialog('Expired Link','The AJAX you attempted to run is requesting a link that has expired.<br>To handle expired links add a function called expiredAJAX(element) to your application.');};}
+if(typeof expiredAJAX  != "function") {expiredAJAX=function(){CLEAR.f.dialog('Expired Session','This session has expired.<br>To handle expired sessions add a global javascript function called expiredAJAX(element) to your application.');};}
 if(typeof progressAJAX != "function") {progressAJAX=function(){};}
 if(typeof writeHTML   != "function") {writeHTML=function(div,content){CLEAR.f.$(div).innerHTML=content;};}
 if(typeof appendHTML  != "function") {appendHTML=function(div,content){CLEAR.f.$(div).innerHTML+=content;};}
@@ -1082,7 +1082,7 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
      t0='';
      t1=t;
     } else if(status != '200'){
-     t0='expecting AJAX response recieved html instead ('+s+').';
+     t0='Expected an AJAX response. HTML was returned instead ('+s+').';
     } else {
      t0='Server status 200 expected, server status recieved was:'+s;
     }
@@ -1128,33 +1128,42 @@ if (x<250){x=x+250; xt=50;}
     w.style.position='absolute';
     w.style.top=parseInt(yt/2,10)+'px';
     w.style.left=parseInt(xt/2,10)+'px';
-    w.style.backgroundColor='#A0B0B1';
+    w.style.backgroundColor='#788d9d';
+    w.style.color='#444';
     w.style.width=x+'px';
     w.style.height=y+'px';
     w.style.overflow='auto';
-    w.style.padding='10px';
-    w.style.border='5px solid #ddd';
-    w.style.mozBorderRadius='10px';
-    w.style.webkitBorderRadius='10px';
-    w.style.borderRadius='10px';
+    w.style.padding='20px';
+    w.style.border='5px solid #005fa4';
+
+
+    w.style.mozBorderRadius='5px';
+    w.style.webkitBorderRadius='5px';
+    w.style.borderRadius='5px';
+
+w.style.cursor='pointer';
+
     w.style.mozBoxSizing='border-box';
     w.style.webkitBoxSizing='border-box';
     w.style.boxSizing='border-box';
+    w.style.overflowX='hidden';
     if (t === ''){t = '--empty--';}
     if (f != ''){
-     w.innerHTML = '<div style="background-color: #bbbbbb; height: 15px; font-family: Verdana; font-size: 10px;">'+f+'</div><div style="background-color: #ffffff;" id="CLEAR_ERROR">'+t+'</div>';
+     w.innerHTML = '<div style="background-color: #eeeeef; font-family: sans-serif; font-size: 15px;">'+f+'</div><div style="background-color: #ffffff;" id="CLEAR_ERROR">'+t+'</div>';
      document.body.appendChild(w);
     } else {
-     w.innerHTML = '<div style="margin:0;padding:0;border:none;background-color: #ffffff;width:'+(x-30)+'px; height:'+(y-30)+'px; overflow: none;" id="CLEAR_ERROR"></div><div style="position: absolute; left: -15px; top: -15px; background-color: #ddd; border: none; padding: 5px;border-bottom-right-radius: 10px;moz-border-radius-bottomright: 10px;webkit-border-bottom-right-radius: 10px;">(x)</div>';
+
+     w.style.padding='30px';
+
+     w.innerHTML = '<div style="margin:0;padding:0;border:none;background-color: #ffffff;width:'+(x-120)+'px; height:'+(y-120)+'px; overflow: none;" id="CLEAR_ERROR"></div><div style="position: absolute; left: -7px; top: -7px; border: none; padding: 5px;font-weight:bold;color:#fff;-webkit-user-select: none;">(x)</div>';
+
      document.body.appendChild(w);
-     var iframe = new CLEAR.f.IFrame(CLEAR.f.$("CLEAR_ERROR"),x-30,y-30);
+     var iframe = new CLEAR.f.IFrame(CLEAR.f.$("CLEAR_ERROR"),x-75,y-75);
      iframe.doc.body.innerHTML='<div style="padding: 0; margin:0; border: none;">'+t+'</div>';
     }
     CLEAR.f.observe(w,'click',function(){document.body.removeChild(w);});
     return true;
    },
-
-
 
 
 
