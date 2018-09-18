@@ -1,0 +1,11 @@
+if isfile('/apps/appmanager/bootstrap/local.lib') then expand file='/apps/appmanager/bootstrap/local.lib' /expand /if
+
+commonheader=showwith('',bootstrap_header,lf)+^  <style>body {margin-top:2em;}</style>^
+
+function nav(link) do
+ if isfunction(bootstrap_nav) then
+  return bootstrap_nav('AJAX for HTML/OS','index.html',link) /return
+ else
+  return '<a href="index.html">AJAX for HTML/OS</a> | <a href="'+link+'">return</a><hr>' /return
+ /if
+/function

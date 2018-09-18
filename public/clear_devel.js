@@ -723,7 +723,15 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
          newdiv.setAttribute('value','TWRerror');
          el.insertBefore(newdiv,el.firstChild);
         }
-        el.action=el.action.replace('?ajaxrequest=IFRAME','')+'?ajaxrequest=IFRAME';
+
+        if( el.action.replace('?ajaxrequest=IFRAME','').indexOf('?') == -1){
+         var Q='?';
+        } else {
+         var Q='&';
+        }
+
+        el.action=el.action.replace('?ajaxrequest=IFRAME','').replace('&ajaxrequest=IFRAME','')+Q+'ajaxrequest=IFRAME';
+
         CLEAR.f.AIM.submit(el);
         // The AIM method doesn't actually submit the form, it simply creates a new target
         // that is why we end this with return true, the browser will do the submission
@@ -884,7 +892,19 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
       ajax=CLEAR.f.ajaxRequest();
       element.ajax=ajax;
       element.progress={loaded:0, total:0, percent:0};
-      ajax.open(method,action+'?ajaxrequest=TRUE',true); // add the ajaxrequest=TRUE so expired links can be handled properly
+
+
+
+      if( action.indexOf('?') == -1){
+       var Q='?';
+      } else {
+       var Q='&';
+      }
+
+      ajax.open(method,action+Q+'ajaxrequest=TRUE',true); // add the ajaxrequest=TRUE so expired links can be handled properly
+
+
+
       ajax.upload={};
       ajax.upload.onprogress=(function(el) {
        // We create a closure here to retain the element.
@@ -951,7 +971,15 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
       }
       ajax = new CLEAR.f.ajaxRequest();
       element.ajax=ajax;
-      ajax.open(method,action+'?ajaxrequest=TRUE',true); // add the ajaxrequest=TRUE so expired links can be handled properly
+
+
+      if( action.indexOf('?') == -1){
+       var Q='?';
+      } else {
+       var Q='&';
+      }
+
+      ajax.open(method,action+Q+'ajaxrequest=TRUE',true); // add the ajaxrequest=TRUE so expired links can be handled properly
       strg = 'ajaxrequest=TRUE&';
       ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded;");
       for (var p in params) {
@@ -1005,7 +1033,14 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
      }
      ajax = new CLEAR.f.ajaxRequest();
      element.ajax=ajax;
-     ajax.open(method,action+'?ajaxrequest=TRUE',true); // add the ajaxrequest=TRUE so expired links can be handled properly
+
+     if( action.indexOf('?') == -1){
+      var Q='?';
+     } else {
+      var Q='&';
+     }
+
+     ajax.open(method,action+Q+'ajaxrequest=TRUE',true); // add the ajaxrequest=TRUE so expired links can be handled properly
      strg = 'ajaxrequest=TRUE&';
      ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded;");
      for (var p in params) {

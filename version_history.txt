@@ -4,3 +4,5 @@
 1.04 01/25/2016 15:31 Week Begin 01/25/2016 Refresh
 1.06 04/15/2016 13:45 Updated Error Dialog
 1.1 04/18/2016 13:42 Added dual purpose 410 Error, Expired link is both valid Javascript and also valid HTML.
+1.19 11/17/2016 18:24 Added Bootstrap
+1.2 11/17/2016 20:12 Bootstrap
