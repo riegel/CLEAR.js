@@ -22,7 +22,7 @@
 //         git push origin master
 // STEP 4: ^ [do step 3 again]
 //
-//
+// Terry Riegel
 //
 // Setting up a plan for public files
 //
@@ -119,7 +119,7 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
    init : function(target) {
     var k = document.getElementsByTagName('SCRIPT');
     for (var i = 0; i < k.length; i++) {
-     if (k[i].src.match(target)) {
+     if (   (k[i].src && k[i].src.match(target)) || (k[i].dataset.src && k[i].dataset.src.match(target))  ) {
       // Next we load any script arguments passed into CLEAR.a
       CLEAR.a = {};
       if (k[i].innerHTML) {
@@ -252,6 +252,7 @@ if(typeof prependHTML != "function") {prependHTML=function(div,content){CLEAR.f.
      "debug" : false,
      "onload" : AJAXready,
      "useAIM" : false,
+     "reloadonerror" : false,
      "loadingID" : "processing",
      "loadingHTML" : "loading..."
     };
@@ -1190,13 +1191,20 @@ w.style.cursor='pointer';
 
      w.style.padding='30px';
 
-     w.innerHTML = '<div style="margin:0;padding:0;border:none;background-color: #ffffff;width:'+(x-120)+'px; height:'+(y-120)+'px; overflow: none;" id="CLEAR_ERROR"></div><div style="position: absolute; left: -7px; top: -7px; border: none; padding: 5px;font-weight:bold;color:#fff;-webkit-user-select: none;">(x)</div>';
+     w.innerHTML = '<div style="margin:0;padding:0;border:none;background-color: #ffffff;width:'+(x-120)+'px; height:'+(y-120)+'px; overflow: none;" id="CLEAR_ERROR"></div><div style="position: absolute; left: -7px; top: -7px; border: none; padding: 5px;font-weight:bold;font-size:20px;color:#fff;-webkit-user-select: none;">(x)</div>';
 
      document.body.appendChild(w);
      var iframe = new CLEAR.f.IFrame(CLEAR.f.$("CLEAR_ERROR"),x-75,y-75);
      iframe.doc.body.innerHTML='<div style="padding: 0; margin:0; border: none;">'+t+'</div>';
     }
-    CLEAR.f.observe(w,'click',function(){document.body.removeChild(w);});
+
+
+    if(typeof CLEAR.a.reloadonerror == "undefined") {CLEAR.a.reloadonerror=false;}
+    if(CLEAR.a.reloadonerror) {
+     CLEAR.f.observe(w,'click',function(){document.location.reload();});
+    } else {
+     CLEAR.f.observe(w,'click',function(){document.body.removeChild(w);});
+    }
     return true;
    },
 

@@ -6,3 +6,6 @@
 1.1 04/18/2016 13:42 Added dual purpose 410 Error, Expired link is both valid Javascript and also valid HTML.
 1.19 11/17/2016 18:24 Added Bootstrap
 1.2 11/17/2016 20:12 Bootstrap
+1.24 04/20/2019 22:52 Added reloadonerror option for error messages so that the app reloads on an error to save it from never reloading.
+1.26 04/22/2019 13:05 Added data-src to script tag so the script can be placed inline and still have params passed via the script tag.
+1.27 04/22/2019 13:09 Added data-src to script tag so the script can be placed inline and still have params passed via the script tag.
